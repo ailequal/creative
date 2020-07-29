@@ -60,7 +60,7 @@ $args = array(
 
 
 </head>
-<body id="page-top" <?php body_class('hello-world'); ?>>
+<body id="page-top" <?php body_class(); ?>>
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container">

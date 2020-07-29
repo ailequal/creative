@@ -35,7 +35,7 @@ $args = array(
 <footer class="bg-light py-5">
     <?php wp_nav_menu($args); ?>
     <div class="container">
-        <div class="small text-center text-muted">Copyright © 2020 - Start Bootstrap</div>
+        <div class="small text-center text-muted">Copyright © 2020 - <?php echo get_bloginfo('name') ?></div>
     </div>
 </footer>
 <?php wp_footer(); ?>

@@ -12,9 +12,24 @@
  * @package creative
  */
 
+// Variabili per la visualizzazione
+$args = array(
+    'post_type' => 'section',
+    'order' => 'ASC'
+);
+
 get_header();
 ?>
-
+    <a href="#section-14" class="nav-link js-scroll-trigger">Sezione 14</a>
+    <!-- CPT "section" loop-->
+<?php $query = new WP_Query($args); ?>
+<?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
+    <div id="section-<?php echo get_the_id() ?>">
+        <?php the_content() ?>
+    </div>
+<?php endwhile; ?>
+<?php endif; ?>
+<?php wp_reset_postdata() ?>
     <!-- About-->
     <section class="page-section bg-primary" id="about">
         <div class="container">

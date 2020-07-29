@@ -83,3 +83,80 @@ function add_a_attribute($atts, $item, $args)
 }
 
 add_filter('nav_menu_link_attributes', 'add_a_attribute', 10, 3);
+
+/**
+ * Creazione del CPT "section".
+ */
+function creative_create_post_type_section()
+{
+    $labels = array(
+        'name' => _x('Sezioni', 'Post type general name', 'creative'),
+        'singular_name' => _x('Sezione', 'Post type singular name', 'creative'),
+        'menu_name' => _x('Sezioni', 'Admin Menu text', 'creative'),
+        'name_admin_bar' => _x('Sezione', 'Add New on Toolbar', 'creative'),
+        'add_new' => __('Nuova sezione', 'creative'),
+        'add_new_item' => __('Aggiungi nuova sezione', 'creative'),
+        'new_item' => __('Nuova sezione', 'creative'),
+        'edit_item' => __('Modifica sezione', 'creative'),
+        'view_item' => __('Visualizza sezione', 'creative'),
+        'all_items' => __('Tutte le sezioni', 'creative'),
+        'search_items' => __('Cerca le sezioni', 'creative'),
+        'parent_item_colon' => __('Sezione genitore:', 'creative'),
+        'not_found' => __('Nessuna sezione trovata.', 'creative'),
+        'not_found_in_trash' => __('Nessuna sezione trovata nel cestino.', 'creative'),
+        'featured_image' => _x('Immagine in evidenza della sezione', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'creative'),
+        'set_featured_image' => _x('Imposta immagine in evidenza della sezione', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'creative'),
+        'remove_featured_image' => _x('Rimuovi immagine in evidenza della sezione', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'creative'),
+        'use_featured_image' => _x('Usa come immagine in evidenza', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'creative'),
+        'archives' => _x('Archivio sezioni', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'creative'),
+        'insert_into_item' => _x('Inserisci nella sezione', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'creative'),
+        'uploaded_to_this_item' => _x('Caricato con questa sezione', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'creative'),
+        'filter_items_list' => _x('Filtra lista di sezioni', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'creative'),
+        'items_list_navigation' => _x('Lista di navigazione delle sezioni', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'creative'),
+        'items_list' => _x('Lista delle sezioni', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'creative'),
+    );
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'show_in_rest' => true,
+        'query_var' => true,
+        'exclude_from_search' => true,
+//        'rewrite' => array('slug' => 'sezione'),
+        'capability_type' => 'post',
+        'has_archive' => false,
+        'hierarchical' => true,
+        'menu_position' => null,
+        'supports' => array(
+            'title',
+            'editor',
+            'author',
+            'thumbnail',
+            'revisions'
+        ),
+//        'taxonomies' => array('section_category', 'section_tag'),
+    );
+    register_post_type('section', $args);
+}
+
+add_action('init', 'creative_create_post_type_section');
+
+/**
+ * @param $items
+ * @param $args
+ * @return mixed
+ */
+function creative_menu_anchors($items, $args)
+{
+    foreach ($items as $key => $item) {
+        if ($item->object === 'section') {
+            $item->url = '#section-' . get_post_meta($item->ID, '_menu_item_object_id', true);
+        }
+    }
+
+    return $items;
+}
+
+add_filter('wp_nav_menu_objects', 'creative_menu_anchors', 10, 2);
