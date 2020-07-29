@@ -18,17 +18,16 @@ $args = array(
     'menu_class' => 'navbar-nav ml-auto my-2 my-lg-0',
     'menu_id' => '',
     'echo' => true,
-    'fallback_cb' => 'wp_page_menu',
+    'fallback_cb' => 'WP_Bootstrap_Navwalker::fallback',
     'before' => '',
     'after' => '',
     'link_before' => '',
     'link_after' => '',
     'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
     'item_spacing' => 'preserve',
-    'depth' => 0,
-    'walker' => '',
+    'depth' => 2,
+    'walker' => new WP_Bootstrap_Navwalker(),
     'theme_location' => 'header',
-    'add_li_class' => 'nav-item',
 );
 ?>
 

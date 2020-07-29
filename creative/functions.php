@@ -45,24 +45,14 @@ function creative_theme_setup()
 add_action('after_setup_theme', 'creative_theme_setup');
 
 /**
- * Aggiungi una classe personalizzata ai <li> del menu.
- *
- * @param array $classes Array delle classi CSS applicate al tag <li>.
- * @param object $item L'attuale menu item.
- * @param object $args L'oggetto degli argomenti della funzione wp_nav_menu().
- *
- * @return mixed Array di classi personalizzate per <li>.
+ * Register Custom Navigation Walker
  */
-function add_li_class($classes, $item, $args)
+function register_navwalker()
 {
-    if (isset($args->add_li_class)) {
-        $classes[] = $args->add_li_class;
-    }
-
-    return $classes;
+    require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
 }
 
-add_filter('nav_menu_css_class', 'add_li_class', 1, 3);
+add_action('after_setup_theme', 'register_navwalker');
 
 /**
  * Aggiungi una classe personalizzata agli <a> del menu.
@@ -75,11 +65,8 @@ add_filter('nav_menu_css_class', 'add_li_class', 1, 3);
  */
 function add_a_attribute($atts, $item, $args)
 {
-    if ($args->theme_location === 'header') {
-        $atts['class'] = 'nav-link';
-        if ($item->object === 'section') {
-            $atts['class'] = 'nav-link js-scroll-trigger';
-        }
+    if ($args->theme_location === 'header' && $item->object === 'section') {
+        $atts['class'] = 'nav-link js-scroll-trigger';
     }
 
     return $atts;
