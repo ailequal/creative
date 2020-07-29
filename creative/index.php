@@ -20,7 +20,7 @@ $args = array(
 
 get_header();
 ?>
-    <a href="#section-14" class="nav-link js-scroll-trigger">Sezione 14</a>
+
     <!-- CPT "section" loop-->
 <?php $query = new WP_Query($args); ?>
 <?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>

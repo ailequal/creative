@@ -77,12 +77,36 @@ function add_a_attribute($atts, $item, $args)
 {
     if ($args->theme_location === 'header') {
         $atts['class'] = 'nav-link';
+        if ($item->object === 'section') {
+            $atts['class'] = 'nav-link js-scroll-trigger';
+        }
     }
 
     return $atts;
 }
 
 add_filter('nav_menu_link_attributes', 'add_a_attribute', 10, 3);
+
+/**
+ * Filtra tutti gli elementi salvati della barra menu.
+ *
+ * @param array $items Tutti gli elementi del menu.
+ * @param object $args Oggetto che contiene wp_nav_menu().
+ * @return mixed Il menu filtrato.
+ */
+function creative_menu_anchors($items, $args)
+{
+    foreach ($items as $key => $item) {
+        if ($item->object === 'section') {
+            $item->url = '#section-' . $item->object_id;
+//            $item->url = '#section-' . get_post_meta($item->ID, '_menu_item_object_id', true);
+        }
+    }
+
+    return $items;
+}
+
+add_filter('wp_nav_menu_objects', 'creative_menu_anchors', 10, 2);
 
 /**
  * Creazione del CPT "section".
@@ -142,21 +166,3 @@ function creative_create_post_type_section()
 }
 
 add_action('init', 'creative_create_post_type_section');
-
-/**
- * @param $items
- * @param $args
- * @return mixed
- */
-function creative_menu_anchors($items, $args)
-{
-    foreach ($items as $key => $item) {
-        if ($item->object === 'section') {
-            $item->url = '#section-' . get_post_meta($item->ID, '_menu_item_object_id', true);
-        }
-    }
-
-    return $items;
-}
-
-add_filter('wp_nav_menu_objects', 'creative_menu_anchors', 10, 2);

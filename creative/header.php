@@ -23,13 +23,7 @@ $args = array(
     'after' => '',
     'link_before' => '',
     'link_after' => '',
-    'items_wrap' => '
-<ul id="%1$s" class="%2$s">
-	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
-	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
-	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a></li>
-	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
-%3$s</ul>',
+    'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
     'item_spacing' => 'preserve',
     'depth' => 0,
     'walker' => '',
