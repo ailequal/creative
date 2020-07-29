@@ -15,16 +15,20 @@
 // Variabili per la visualizzazione
 $args = array(
     'post_type' => 'section',
-    'order' => 'ASC'
+    'order' => 'ASC',
+    'offset' => '1',
 );
 
 get_header();
 ?>
 
-    <!-- CPT "section" loop-->
+    <!-- CPT "section" loop (tutte le sezioni tranne la prima)-->
 <?php $query = new WP_Query($args); ?>
 <?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
     <div id="section-<?php echo get_the_id() ?>">
+        <?php if (has_post_thumbnail()) : ?>
+            <?php the_post_thumbnail(); ?>
+        <?php endif; ?>
         <?php the_content() ?>
     </div>
 <?php endwhile; ?>

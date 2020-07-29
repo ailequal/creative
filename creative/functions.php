@@ -32,14 +32,18 @@ function creative_enqueue_scripts()
 add_action('wp_enqueue_scripts', 'creative_enqueue_scripts');
 
 /**
- * Registrazione dei menu disponibili per il tema.
+ * Setup del tema "creative".
  */
 function creative_theme_setup()
 {
+    // Registrazione dei menu disponibili per il tema.
     register_nav_menus(array(
         'header' => 'Header',
         'footer' => 'Footer',
     ));
+
+    // Aggiunto supporto per le thumbnails.
+    add_theme_support('post-thumbnails');
 }
 
 add_action('after_setup_theme', 'creative_theme_setup');

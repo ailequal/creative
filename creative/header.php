@@ -10,7 +10,7 @@
  */
 
 // Variabili per la visualizzazione
-$args = array(
+$args_menu = array(
     'menu' => '',
     'container' => 'div',
     'container_class' => 'collapse navbar-collapse',
@@ -28,6 +28,12 @@ $args = array(
     'depth' => 2,
     'walker' => new WP_Bootstrap_Navwalker(),
     'theme_location' => 'header',
+);
+
+$args_section = array(
+    'post_type' => 'section',
+    'order' => 'ASC',
+    'posts_per_page' => 1,
 );
 ?>
 
@@ -61,23 +67,18 @@ $args = array(
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <?php wp_nav_menu($args); ?>
+        <?php wp_nav_menu($args_menu); ?>
     </div>
 </nav>
 <!-- Masthead-->
-<header class="masthead">
-    <div class="container h-100 bkg">
-        <div class="row h-100 align-items-center justify-content-center text-center">
-            <div class="col-lg-10 align-self-end">
-                <h1 class="text-uppercase text-white font-weight-bold">Your Super Favorite Source of Free Bootstrap
-                    Themes</h1>
-                <hr class="divider my-4"/>
-            </div>
-            <div class="col-lg-8 align-self-baseline">
-                <p class="text-white-75 font-weight-light mb-5">Start Bootstrap can help you build better websites using
-                    the Bootstrap framework! Just download a theme and start customizing, no strings attached!</p>
-                <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
-            </div>
-        </div>
-    </div>
-</header>
+<!-- CPT "section" loop (solo la prima sezione)-->
+<?php $query = new WP_Query($args_section); ?>
+<?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
+    <header class="masthead d-flex align-items-center" style="background-image: url(<?php echo get_the_post_thumbnail_url() ?>)">
+                <div id="section-<?php echo get_the_id() ?>" class="vertical-center">
+                    <?php the_content() ?>
+                </div>
+    </header>
+<?php endwhile; ?>
+<?php endif; ?>
+<?php wp_reset_postdata() ?>
