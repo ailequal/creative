@@ -11,23 +11,23 @@
 
 // Variabili per la visualizzazione
 $args_menu = array(
-    'menu' => '',
-    'container' => 'div',
-    'container_class' => 'collapse navbar-collapse',
-    'container_id' => 'navbarResponsive',
-    'menu_class' => 'navbar-nav ml-auto my-2 my-lg-0',
-    'menu_id' => '',
-    'echo' => true,
-    'fallback_cb' => 'WP_Bootstrap_Navwalker::fallback',
-    'before' => '',
-    'after' => '',
-    'link_before' => '',
-    'link_after' => '',
-    'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-    'item_spacing' => 'preserve',
-    'depth' => 2,
-    'walker' => new WP_Bootstrap_Navwalker(),
-    'theme_location' => 'header',
+	'menu'            => '',
+	'container'       => 'div',
+	'container_class' => 'collapse navbar-collapse',
+	'container_id'    => 'navbarResponsive',
+	'menu_class'      => 'navbar-nav ml-auto my-2 my-lg-0',
+	'menu_id'         => '',
+	'echo'            => true,
+	'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
+	'before'          => '',
+	'after'           => '',
+	'link_before'     => '',
+	'link_after'      => '',
+	'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+	'item_spacing'    => 'preserve',
+	'depth'           => 2,
+	'walker'          => new WP_Bootstrap_Navwalker(),
+	'theme_location'  => 'header',
 );
 ?>
 
@@ -39,18 +39,19 @@ $args_menu = array(
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>Creative - Start Bootstrap Theme</title>
-    <link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri() . '/assets/img/favicon.ico' ?>"/>
-    <?php wp_head() ?>
+    <link rel="icon" type="image/x-icon"
+          href="<?php echo get_template_directory_uri() . '/assets/img/favicon.ico' ?>"/>
+	<?php wp_head() ?>
 </head>
 <body id="page-top" <?php body_class(); ?>>
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top"><?php echo get_bloginfo('name') ?></a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"
+           style="color: <?php echo get_theme_mod( 'primary_color', '#000000' ) ?>;"><?php echo get_bloginfo( 'name' ) ?></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <?php wp_nav_menu($args_menu); ?>
+		<?php wp_nav_menu( $args_menu ); ?>
     </div>
 </nav>
-

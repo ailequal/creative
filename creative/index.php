@@ -14,15 +14,15 @@
 
 // Variabili per la visualizzazione
 $args_first_section = array(
-    'post_type' => 'section',
-    'order' => 'ASC',
-    'posts_per_page' => 1,
+	'post_type'      => 'section',
+	'order'          => 'ASC',
+	'posts_per_page' => 1,
 );
 
 $args_other_sections = array(
-    'post_type' => 'section',
-    'order' => 'ASC',
-    'offset' => '1',
+	'post_type' => 'section',
+	'order'     => 'ASC',
+	'offset'    => '1',
 );
 
 get_header();
@@ -30,12 +30,12 @@ get_header();
 
     <!-- Masthead-->
     <!-- CPT "section" loop (solo la prima sezione)-->
-<?php $query_first_section = new WP_Query($args_first_section); ?>
-<?php if ($query_first_section->have_posts()) : while ($query_first_section->have_posts()) : $query_first_section->the_post(); ?>
+<?php $query_first_section = new WP_Query( $args_first_section ); ?>
+<?php if ( $query_first_section->have_posts() ) : while ( $query_first_section->have_posts() ) : $query_first_section->the_post(); ?>
     <header class="masthead d-flex align-items-center"
             style="background-image: url(<?php echo get_the_post_thumbnail_url() ?>)">
         <div id="section-<?php echo get_the_id() ?>" class="vertical-center">
-            <?php the_content() ?>
+			<?php the_content() ?>
         </div>
     </header>
 <?php endwhile; ?>
@@ -43,13 +43,13 @@ get_header();
 <?php wp_reset_postdata() ?>
 
     <!-- CPT "section" loop (tutte le sezioni tranne la prima)-->
-<?php $query_other_sections = new WP_Query($args_other_sections); ?>
-<?php if ($query_other_sections->have_posts()) : while ($query_other_sections->have_posts()) : $query_other_sections->the_post(); ?>
+<?php $query_other_sections = new WP_Query( $args_other_sections ); ?>
+<?php if ( $query_other_sections->have_posts() ) : while ( $query_other_sections->have_posts() ) : $query_other_sections->the_post(); ?>
     <div id="section-<?php echo get_the_id() ?>">
-        <?php if (has_post_thumbnail()) : ?>
-            <?php the_post_thumbnail(); ?>
-        <?php endif; ?>
-        <?php the_content() ?>
+		<?php if ( has_post_thumbnail() ) : ?>
+			<?php the_post_thumbnail(); ?>
+		<?php endif; ?>
+		<?php the_content() ?>
     </div>
 <?php endwhile; ?>
 <?php endif; ?>
