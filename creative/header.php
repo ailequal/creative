@@ -29,12 +29,6 @@ $args_menu = array(
     'walker' => new WP_Bootstrap_Navwalker(),
     'theme_location' => 'header',
 );
-
-$args_section = array(
-    'post_type' => 'section',
-    'order' => 'ASC',
-    'posts_per_page' => 1,
-);
 ?>
 
 <!DOCTYPE html>
@@ -47,17 +41,6 @@ $args_section = array(
     <title>Creative - Start Bootstrap Theme</title>
     <link rel="icon" type="image/x-icon" href="<?php echo get_template_directory_uri() . '/assets/img/favicon.ico' ?>"/>
     <?php wp_head() ?>
-    <style>
-        .bkg {
-            background-color: <?php echo $color; ?>
-        }
-
-        .bkg-alt {
-            background-color: <?php echo $color_alt; ?>
-        }
-    </style>
-
-
 </head>
 <body id="page-top" <?php body_class(); ?>>
 <!-- Navigation-->
@@ -70,15 +53,4 @@ $args_section = array(
         <?php wp_nav_menu($args_menu); ?>
     </div>
 </nav>
-<!-- Masthead-->
-<!-- CPT "section" loop (solo la prima sezione)-->
-<?php $query = new WP_Query($args_section); ?>
-<?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
-    <header class="masthead d-flex align-items-center" style="background-image: url(<?php echo get_the_post_thumbnail_url() ?>)">
-                <div id="section-<?php echo get_the_id() ?>" class="vertical-center">
-                    <?php the_content() ?>
-                </div>
-    </header>
-<?php endwhile; ?>
-<?php endif; ?>
-<?php wp_reset_postdata() ?>
+
