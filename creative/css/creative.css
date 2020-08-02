@@ -10714,7 +10714,13 @@ header.masthead h1 {
 }
 
 @media (min-width: 992px) {
-    header.masthead {
+    body header.masthead {
+        height: 300px;
+        padding-top: 4.5rem;
+        padding-bottom: 0;
+    }
+
+    body.home header.masthead {
         height: 100vh;
         min-height: 40rem;
         padding-top: 4.5rem;
